@@ -12,6 +12,10 @@ LICENSE="LGPL-2+"
 SLOT="2"
 KEYWORDS="*"
 
+S="${WORKDIR}/{{ github_user }}-{{ github_repo }}-{{ sha[:7] }}"
+
+RESTRICT="network-sandbox"
+
 IUSE="gtk-doc +introspection +vala"
 REQUIRED_USE="gtk-doc? ( introspection ) vala? ( introspection )"
 RDEPEND="
