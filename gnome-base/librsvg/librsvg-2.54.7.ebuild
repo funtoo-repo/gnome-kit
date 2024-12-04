@@ -1,20 +1,19 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 GNOME3_LA_PUNT="yes"
 VALA_USE_DEPEND="vapigen"
-inherit autotools eutils gnome3 vala ltprune memsaver
+inherit autotools eutils gnome3 vala ltprune memsaver cargo
 
 DESCRIPTION="Scalable Vector Graphics (SVG) rendering library"
 HOMEPAGE="https://wiki.gnome.org/Projects/LibRsvg"
-SRC_URI="https://github.com/GNOME/librsvg/tarball/2f7db6161d09cdca8072a66a0bdfd64a46436bfd -> librsvg-2.54.7-2f7db61.tar.gz"
+SRC_URI="https://github.com/GNOME/librsvg/tarball/2f7db6161d09cdca8072a66a0bdfd64a46436bfd -> librsvg-2.54.7-2f7db61.tar.gz
+https://direct-github.funmore.org/05/46/c8/0546c87668f53cac79baa6c533a8e4dde37496e610d8ca96c41e937dd53760972299392f5ed29f3f79e9825dd05f1162e96c1516aeb9d43ada141e8c1d67835f -> librsvg-2.54.7-funtoo-crates-bundle-af10f4f29778cae8dc554b1e9fdb82daa1f95a2f951122554db0f54503538616d1d5ade3b84d13c745e9ad953c3b1c8d4949bb32d9ea368c341f6ad6594c1e2a.tar.gz"
 LICENSE="LGPL-2+"
 SLOT="2"
 KEYWORDS="*"
 
 S="${WORKDIR}/GNOME-librsvg-2f7db61"
-
-RESTRICT="network-sandbox"
 
 IUSE="gtk-doc +introspection +vala"
 REQUIRED_USE="gtk-doc? ( introspection ) vala? ( introspection )"
@@ -36,6 +35,11 @@ DEPEND="${RDEPEND}
 	vala? ( $(vala_depend) )
 	>=virtual/pkgconfig-0-r1
 "
+
+src_unpack() {
+	cargo_src_unpack
+}
+
 src_prepare() {
 	eautoreconf
 	gnome3_src_prepare
