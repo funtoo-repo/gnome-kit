@@ -26,5 +26,5 @@ PATCHES=( "${FILESDIR}"/${PN}-0.16-libiconv.patch )
 src_prepare() {
 	default
 	sed -i -e 's:AM_CONFIG_HEADER:AC_CONFIG_HEADERS:' configure.ac || die #467032
-	eautoreconf # for the above patch
+	elibtoolize
 }
